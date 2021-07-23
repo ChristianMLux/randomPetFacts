@@ -1,20 +1,58 @@
 let facts = [];
-let pics = [];
+let imgs = [];
 let factDOM = document.getElementById("fact");
 let getFactBtnDOM = document.getElementById("getFactBtn");
 let catPicDOM = document.getElementById("catPic");
-let i = 0;
 
 class Fact {
   constructor(text, url) {
     this.fact = text;
-    this.catPicURL = url;
+    this.imgURL = url;
+  }
+  getCatFact() {
+    fetch("https://catfact.ninja/fact?max_length=140")
+      .then((response) => response.json())
+      .then(function (data) {
+        facts.push(data.fact);
+      });
+  }
+  getCatImg() {
+    fetch("https://api.thecatapi.com/v1/images/search?url")
+      .then((response) => response.json())
+      .then(function (data) {
+        imgs.push(data);
+      });
   }
 }
 
-getFactBtnDOM.addEventListener("click", getCompleteFact);
+let newFact = new Fact();
 
-function getCatPic() {
+initApp();
+function initApp() {
+  createCatFact();
+}
+
+getFactBtnDOM.addEventListener("click", createFactArray);
+
+function createCatFact() {
+  newFact.getCatFact();
+  newFact.getCatImg();
+}
+
+function createFactArray() {
+  renderFact();
+  createCatFact();
+  facts = [];
+  imgs = [];
+}
+
+function renderFact() {
+  factDOM.textContent = facts;
+  catPicDOM.src = imgs[0][0].url;
+}
+
+/**
+ *function getCatPic() {
   fetch("https://api.thecatapi.com/v1/images/search")
     .then((response) => response.json())
     .then(function (data) {
@@ -34,17 +72,4 @@ function getCatFact() {
       i++;
     });
 }
-
-function getCompleteFact() {
-  getCatPic();
-  getCatFact();
-}
-
-function renderFact(fact) {
-  factDOM.textContent = fact.fact;
-  catPicDOM.src = fact.catPicURL;
-}
-
-/**
- *
  */
