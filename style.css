@@ -1,10 +1,30 @@
 main {
-  max-width: 40ch;
+  max-width: 50ch;
   margin: 0 auto;
+}
+body {
+  background-image: url(/img/AdobeStock_302196166.jpeg);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 section {
+  background-color: aliceblue;
   margin: 1rem;
   padding: 3rem;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.btnplace {
+  margin: 2rem;
+}
+
+.me {
+  border-radius: 1rem 2rem 1rem 2rem;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
